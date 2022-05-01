@@ -3,7 +3,9 @@ const toDoInput = toDoForm.querySelector("input"); //toDoForm 안에 input이 1�
 //const toDoInput = doucument.querySelector("todo-from input"); //위에랑 같은 의미
 const toDoList = document.getElementById("todo-list");
 
-const toDos = [];
+const TODOS_KEY = "todos"
+
+let toDos = [];
 
 function saveToDos(){
     localStorage.setItem("todos", JSON.stringify(toDos)); //앞에꺼 키 값, JSON은 문자로 바꿔서 array형태로 바꿔준다.
@@ -36,3 +38,11 @@ function handleToDoSubmit(event){//js가 방금 발생한 event를 handleToDoSub
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit)
+
+const savedToDos = localStorage.getItem(TODOS_KEY)
+
+if (saveToDos){
+    const parsedToDos = JSON.parse(savedToDos);
+    toDos = parsedToDos;
+    parsedToDos.forEach(paintToDo);
+}
